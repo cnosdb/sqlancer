@@ -25,13 +25,6 @@ public class CnosDBSelectQuery extends CnosDBQueryAdapter {
         return false;
     }
 
-    // @Override
-    // public <G extends GlobalState<?, ?, CnosDBConnection>> SQLancerResultSet executeAndGet(G globalState, String...
-    // fills) throws Exception {
-    // resultSet = globalState.getConnection().getClient().executeQuery(query);
-    // return null;
-    // }
-
     @Override
     public <G extends GlobalState<?, ?, CnosDBConnection>> SQLancerResultSet executeAndGet(G globalState,
             String... fills) throws Exception {
