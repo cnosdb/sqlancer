@@ -18,7 +18,7 @@ public class CnosDBTableGenerator {
     private final StringBuilder sb = new StringBuilder();
     protected final ExpectedErrors errors = new ExpectedErrors();
     private CnosDBTable table;
-    private final List<CnosDBColumn> columnsToBeAdd = new ArrayList();
+    private final List<CnosDBColumn> columnsToBeAdd = new ArrayList<>();
 
     public CnosDBTableGenerator(String tableName) {
         this.tableName = tableName;

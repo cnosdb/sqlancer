@@ -7,8 +7,7 @@ public final class CnosDBCommon {
     private CnosDBCommon() {
     }
 
-    public static boolean appendDataType(CnosDBDataType type, StringBuilder sb) throws AssertionError {
-        boolean serial = false;
+    public static void appendDataType(CnosDBDataType type, StringBuilder sb) throws AssertionError {
         switch (type) {
             case BOOLEAN:
                 sb.append("BOOLEAN");
@@ -28,6 +27,5 @@ public final class CnosDBCommon {
             default:
                 throw new AssertionError(type);
         }
-        return serial;
     }
 }

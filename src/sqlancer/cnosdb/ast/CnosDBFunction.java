@@ -214,14 +214,6 @@ public class CnosDBFunction implements CnosDBExpression {
         final int nrArgs;
         private final boolean variadic;
 
-        public CnosDBDataType[] getRandomTypes(int nr) {
-            CnosDBDataType[] types = new CnosDBDataType[nr];
-            for (int i = 0; i < types.length; i++) {
-                types[i] = CnosDBDataType.getRandomType();
-            }
-            return types;
-        }
-
         CnosDBFunctionWithResult(int nrArgs, String functionName) {
             this.nrArgs = nrArgs;
             this.functionName = functionName;

@@ -14,7 +14,8 @@ import java.util.stream.Collectors;
 
 public final class CnosDBInsertGenerator {
 
-    private CnosDBInsertGenerator() {}
+    private CnosDBInsertGenerator() {
+    }
 
     public static CnosDBOtherQuery insert(CnosDBGlobalState globalState) {
         CnosDBTable table = globalState.getSchema().getRandomTable();

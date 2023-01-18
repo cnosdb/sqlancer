@@ -2,7 +2,6 @@ package sqlancer.cnosdb;
 
 import sqlancer.Randomly;
 import sqlancer.cnosdb.ast.*;
-import sqlancer.cnosdb.ast.CnosDBJoin.CnosDBJoinType;
 import sqlancer.cnosdb.ast.CnosDBSelect.CnosDBFromTable;
 import sqlancer.cnosdb.ast.CnosDBSelect.CnosDBSubquery;
 import sqlancer.common.visitor.BinaryOperation;
@@ -104,18 +103,18 @@ public final class CnosDBToStringVisitor extends ToStringVisitor<CnosDBExpressio
                 case FULL:
                     sb.append("FULL OUTER JOIN");
                     break;
-                case CROSS:
-                    sb.append("CROSS JOIN");
-                    break;
+//                case CROSS:
+//                    sb.append("CROSS JOIN");
+//                    break;
                 default:
                     throw new AssertionError(j.getType());
             }
             sb.append(" ");
             visit(j.getTableReference());
-            if (j.getType() != CnosDBJoinType.CROSS) {
-                sb.append(" ON ");
-                visit(j.getOnClause());
-            }
+//            if (j.getType() != CnosDBJoinType.CROSS) {
+            sb.append(" ON ");
+            visit(j.getOnClause());
+//            }
         }
 
         if (s.getWhereClause() != null) {
