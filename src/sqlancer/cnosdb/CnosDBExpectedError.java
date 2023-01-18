@@ -56,7 +56,10 @@ public class CnosDBExpectedError {
         errors.add("null character not permitted.");
         errors.add("The percentile argument for ApproxPercentileCont must be Float64, not Null.");
         errors.add("This feature is not implemented");
+        errors.add("The function Avg does not support inputs of type Null.");
         errors.add("Coercion from [Utf8, Timestamp(Nanosecond, Some(\\\"+00:00\\\"))]");
+        errors.add("Coercion from [Utf8, Float64, Utf8] to the signature OneOf([Exact([Utf8, Int64]), Exact([LargeUtf8, Int64]), Exact([Utf8, Int64, Utf8]), Exact([LargeUtf8, Int64, Utf8]), Exact([Utf8, Int64, LargeUtf8]), Exact([LargeUtf8, Int64, LargeUtf8])]) failed.");
+        errors.add("Coercion from");
         return errors;
     }
 

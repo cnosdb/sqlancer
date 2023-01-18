@@ -171,9 +171,8 @@ public class CnosDBExpressionGenerator implements ExpressionGenerator<CnosDBExpr
     }
 
     private CnosDBExpression getComparison(CnosDBExpression leftExpr, CnosDBExpression rightExpr) {
-        CnosDBBinaryComparisonOperation op = new CnosDBBinaryComparisonOperation(leftExpr, rightExpr,
+        return new CnosDBBinaryComparisonOperation(leftExpr, rightExpr,
                 CnosDBBinaryComparisonOperation.CnosDBBinaryComparisonOperator.getRandom());
-        return op;
     }
 
     private CnosDBExpression inOperation(int depth) {
@@ -191,8 +190,7 @@ public class CnosDBExpressionGenerator implements ExpressionGenerator<CnosDBExpr
     }
 
     public CnosDBExpression generateExpression(int depth, CnosDBDataType originalType) {
-        CnosDBDataType dataType = originalType;
-        return generateExpressionInternal(depth, dataType);
+        return generateExpressionInternal(depth, originalType);
     }
 
 
@@ -368,6 +366,9 @@ public class CnosDBExpressionGenerator implements ExpressionGenerator<CnosDBExpr
 
     private CnosDBExpression createColumnOfType(CnosDBDataType type) {
         List<CnosDBColumn> columns = filterColumns(type);
+        if (columns.isEmpty()) {
+            throw new IgnoreMeException();
+        }
         CnosDBColumn fromList = Randomly.fromList(columns);
         CnosDBConstant value = rw == null ? null : rw.getValues().get(fromList);
         return CnosDBColumnValue.create(fromList, value);
@@ -467,7 +468,8 @@ public class CnosDBExpressionGenerator implements ExpressionGenerator<CnosDBExpr
         CnosDBDataType[] types = agg.getInputTypes(dataType);
         List<CnosDBExpression> args = new ArrayList<>();
         for (CnosDBDataType argType : types) {
-            args.add(generateExpression(argType));
+            args.add(createColumnOfType(argType));
+//            args.add(generateExpression(argType));
         }
         return new CnosDBAggregate(args, agg);
     }

@@ -63,20 +63,19 @@ public enum CnosDBFunctionWithUnknownResult {
     SQRT("sqrt", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
     TAN("tan", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
     DATA_PART("date_part", CnosDBDataType.INT, CnosDBDataType.STRING, CnosDBDataType.TIMESTAMP),
-    NOW("now", CnosDBDataType.TIMESTAMP),
 
 
 //    because bug of arrow-csv https://github.com/apache/arrow-rs/issues/3547
-
+//    NOW("now", CnosDBDataType.TIMESTAMP),
 //    TO_TIMESTAMP("to_timestamp", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
 //    TO_TIMESTAMP_MILLIS("to_timestamp_millis", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
 //    TO_TIMESTAMP_MICROS("to_timestamp_micros", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
 //    TO_TIMESTAMP_SECONDS("to_timestamp_seconds", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
 //    DATA_TRUNC("date_trunc", CnosDBDataType.TIMESTAMP, CnosDBDataType.STRING, CnosDBDataType.TIMESTAMP),
     ;
-    private String functionName;
-    private CnosDBDataType returnType;
-    private CnosDBDataType[] argTypes;
+    private final String functionName;
+    private final CnosDBDataType returnType;
+    private final CnosDBDataType[] argTypes;
 
     CnosDBFunctionWithUnknownResult(String functionName, CnosDBDataType returnType, CnosDBDataType... indexType) {
         this.functionName = functionName;
@@ -95,7 +94,6 @@ public enum CnosDBFunctionWithUnknownResult {
             args[i] = gen.generateExpression(depth, argTypes[i]);
         }
         return args;
-
     }
 
     public String getName() {
