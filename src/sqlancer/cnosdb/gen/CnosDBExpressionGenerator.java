@@ -15,7 +15,6 @@ import sqlancer.cnosdb.ast.CnosDBFunction.CnosDBFunctionWithResult;
 import sqlancer.cnosdb.ast.CnosDBOrderByTerm.CnosDBOrder;
 import sqlancer.cnosdb.ast.CnosDBPostfixOperation.PostfixOperator;
 import sqlancer.cnosdb.ast.CnosDBPrefixOperation.PrefixOperator;
-import sqlancer.cnosdb.ast.CnosDBWindowFunctionExpression.CnosDBWindowFunction;
 import sqlancer.common.gen.ExpressionGenerator;
 
 import java.util.ArrayList;
@@ -39,23 +38,10 @@ public class CnosDBExpressionGenerator implements ExpressionGenerator<CnosDBExpr
 
     private boolean allowAggregateFunctions;
 
-    private int maxCountWindowFunction = Randomly.smallNumber();
-
-    private int windowFunctionCount = 0;
-
-    private boolean allowWindowFunction = false;
-
-//    private final Map<String, Character> functionsAndTypes;
-//
-//    private final List<Character> allowedFunctionTypes;
-
     public CnosDBExpressionGenerator(CnosDBGlobalState globalState) {
         this.r = globalState.getRandomly();
         this.maxDepth = globalState.getOptions().getMaxExpressionDepth();
         this.globalState = globalState;
-//        this.functionsAndTypes = globalState.getFunctionsAndTypes();
-//        this.allowedFunctionTypes = globalState.getAllowedFunctionTypes();
-        this.maxCountWindowFunction = Randomly.smallNumber();
     }
 
     public CnosDBExpressionGenerator setColumns(List<CnosDBColumn> columns) {
@@ -66,10 +52,6 @@ public class CnosDBExpressionGenerator implements ExpressionGenerator<CnosDBExpr
     public CnosDBExpressionGenerator setRowValue(CnosDBRowValue rw) {
         this.rw = rw;
         return this;
-    }
-
-    public void allowWindowFunction(boolean allow) {
-        allowWindowFunction = allow;
     }
 
     public CnosDBExpression generateExpression(int depth) {
@@ -210,21 +192,13 @@ public class CnosDBExpressionGenerator implements ExpressionGenerator<CnosDBExpr
 
     public CnosDBExpression generateExpression(int depth, CnosDBDataType originalType) {
         CnosDBDataType dataType = originalType;
-//        if (dataType == CnosDBDataType.DOUBLE && Randomly.getBoolean()) {
-//            dataType = Randomly.fromOptions(CnosDBDataType.INT, CnosDBDataType.DOUBLE);
-//        }
         return generateExpressionInternal(depth, dataType);
     }
 
 
     private CnosDBExpression generateExpressionInternal(int depth, CnosDBDataType dataType) throws AssertionError {
         if (allowAggregateFunctions && Randomly.getBoolean()) {
-            allowAggregateFunctions = false; // aggregate function calls cannot be nested
             return getAggregate(dataType);
-        }
-        if (allowWindowFunction && columns != null && Randomly.getBoolean()) {
-            allowWindowFunction = false;
-            return generateWindowFunctionExpression(dataType);
         }
 
         if (Randomly.getBooleanWithRatherLowProbability() || depth > maxDepth) {
@@ -496,58 +470,6 @@ public class CnosDBExpressionGenerator implements ExpressionGenerator<CnosDBExpr
             args.add(generateExpression(argType));
         }
         return new CnosDBAggregate(args, agg);
-    }
-
-    public CnosDBWindowFunctionExpression generateWindowFunctionExpression(CnosDBDataType dataType) {
-        CnosDBWindowFunction baseWindowFunction = CnosDBWindowFunction.getRandom(dataType);
-
-        boolean normalAggregateFunction = Randomly.getBoolean();
-
-        List<CnosDBExpression> args = new ArrayList<>();
-
-        CnosDBDataType[] types = baseWindowFunction.getInputTypes(dataType);
-        for (CnosDBDataType argTypes : types) {
-            args.add(generateExpression(argTypes));
-        }
-
-        CnosDBWindowFunctionExpression windowFunction = new CnosDBWindowFunctionExpression(
-                baseWindowFunction, args);
-//        if (Randomly.getBooleanWithRatherLowProbability() && normalAggregateFunction) {
-//            windowFunction.setFilterClause(gen.generateExpression());
-//        }
-        if (Randomly.getBooleanWithRatherLowProbability()) {
-            windowFunction.setOrderBy(generateOrderBy());
-        }
-
-        if (Randomly.getBooleanWithRatherLowProbability()) {
-            windowFunction.setOrderBy(generateOrderBy());
-        }
-
-        if (Randomly.getBooleanWithRatherLowProbability()) {
-            windowFunction.setPartitionBy(generateExpressions(Randomly.smallNumber()));
-        }
-
-//        if (Randomly.getBooleanWithRatherLowProbability()) {
-//            windowFunction.setFrameSpecKind(CnosDBFrameSpecKind.getRandom());
-//            CnosDBExpression windowFunctionTerm;
-//            if (Randomly.getBoolean()) {
-//                windowFunctionTerm = new CnosDBWindowFunctionFrameSpecTerm(
-//                        Randomly.fromOptions(CnosDBWindowFunctionFrameSpecTermKind.UNBOUNDED_PRECEDING,
-//                                CnosDBWindowFunctionFrameSpecTermKind.CURRENT_ROW));
-//            } else if (Randomly.getBoolean()) {
-//                windowFunctionTerm = new CnosDBWindowFunctionFrameSpecTerm(gen.generateExpression(),
-//                        CnosDBWindowFunctionFrameSpecTermKind.EXPR_PRECEDING);
-//            } else {
-//                CnosDBWindowFunctionFrameSpecTerm left = getTerm(true, gen);
-//                CnosDBWindowFunctionFrameSpecTerm right = getTerm(false, gen);
-//                windowFunctionTerm = new CnosDBWindowFunctionFrameSpecBetween(left, right);
-//            }
-//            windowFunction.setFrameSpec(windowFunctionTerm);
-//            if (Randomly.getBoolean()) {
-//                windowFunction.setExclude(CnosDBFrameSpecExclude.getRandom());
-//            }
-//        }
-        return windowFunction;
     }
 
     public CnosDBExpressionGenerator allowAggregates(boolean value) {
