@@ -6,6 +6,7 @@ import sqlancer.DBMSSpecificOptions;
 import sqlancer.OracleFactory;
 import sqlancer.cnosdb.CnosDBOptions.CnosDBOracleFactory;
 import sqlancer.cnosdb.oracle.CnosDBNoRECOracle;
+import sqlancer.cnosdb.oracle.CnosDBPivotedQuerySynthesisOracle;
 import sqlancer.cnosdb.oracle.tlp.CnosDBTLPAggregateOracle;
 import sqlancer.cnosdb.oracle.tlp.CnosDBTLPHavingOracle;
 import sqlancer.cnosdb.oracle.tlp.CnosDBTLPWhereOracle;
