@@ -59,7 +59,7 @@ public class CnosDBNoRECOracle extends CnosDBNoRECBase implements TestOracle<Cno
     }
 
     public static List<CnosDBJoin> getJoinStatements(CnosDBGlobalState globalState, List<CnosDBColumn> columns,
-                                                     List<CnosDBTable> tables) {
+            List<CnosDBTable> tables) {
         List<CnosDBJoin> joinStatements = new ArrayList<>();
         CnosDBExpressionGenerator gen = new CnosDBExpressionGenerator(globalState).setColumns(columns);
         for (int i = 1; i < tables.size(); i++) {
@@ -88,7 +88,7 @@ public class CnosDBNoRECOracle extends CnosDBNoRECBase implements TestOracle<Cno
     }
 
     private int getUnoptimizedQueryCount(List<CnosDBExpression> fromTables, CnosDBExpression randomWhereCondition,
-                                         List<CnosDBJoin> joinStatements) throws Exception {
+            List<CnosDBJoin> joinStatements) throws Exception {
         CnosDBSelect select = new CnosDBSelect();
         CnosDBCastOperation isTrue = new CnosDBCastOperation(randomWhereCondition,
                 CnosDBCompoundDataType.create(CnosDBDataType.INT));
@@ -126,7 +126,7 @@ public class CnosDBNoRECOracle extends CnosDBNoRECBase implements TestOracle<Cno
     }
 
     private int getOptimizedQueryCount(List<CnosDBExpression> randomTables, List<CnosDBColumn> columns,
-                                       CnosDBExpression randomWhereCondition, List<CnosDBJoin> joinStatements) {
+            CnosDBExpression randomWhereCondition, List<CnosDBJoin> joinStatements) {
         CnosDBSelect select = new CnosDBSelect();
         CnosDBColumnValue allColumns = new CnosDBColumnValue(Randomly.fromList(columns), null);
         select.setFetchColumns(List.of(allColumns));

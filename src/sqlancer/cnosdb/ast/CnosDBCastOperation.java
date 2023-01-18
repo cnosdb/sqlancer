@@ -24,25 +24,24 @@ public class CnosDBCastOperation implements CnosDBExpression {
         List<CnosDBDataType> options = new ArrayList<>(Arrays.asList(CnosDBDataType.values()));
 
         switch (dataType) {
-            case INT:
-            case STRING:
-                break;
-            case UINT:
-            case BOOLEAN:
-            case DOUBLE:
-                options.remove(CnosDBDataType.TIMESTAMP);
-                break;
-            case TIMESTAMP:
-                options.remove(CnosDBDataType.BOOLEAN);
-                options.remove(CnosDBDataType.UINT);
-                options.remove(CnosDBDataType.DOUBLE);
-                break;
-            default:
-                break;
+        case INT:
+        case STRING:
+            break;
+        case UINT:
+        case BOOLEAN:
+        case DOUBLE:
+            options.remove(CnosDBDataType.TIMESTAMP);
+            break;
+        case TIMESTAMP:
+            options.remove(CnosDBDataType.BOOLEAN);
+            options.remove(CnosDBDataType.UINT);
+            options.remove(CnosDBDataType.DOUBLE);
+            break;
+        default:
+            break;
         }
         return options;
     }
-
 
     @Override
     public CnosDBDataType getExpressionType() {

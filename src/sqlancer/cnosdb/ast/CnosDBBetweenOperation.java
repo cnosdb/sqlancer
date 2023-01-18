@@ -34,8 +34,8 @@ public final class CnosDBBetweenOperation implements CnosDBExpression {
                 CnosDBBinaryComparisonOperator.LESS_EQUALS);
         CnosDBBinaryComparisonOperation rightComparison = new CnosDBBinaryComparisonOperation(expr, right,
                 CnosDBBinaryComparisonOperator.LESS_EQUALS);
-        CnosDBBinaryLogicalOperation andOperation = new CnosDBBinaryLogicalOperation(leftComparison,
-                rightComparison, BinaryLogicalOperator.AND);
+        CnosDBBinaryLogicalOperation andOperation = new CnosDBBinaryLogicalOperation(leftComparison, rightComparison,
+                BinaryLogicalOperator.AND);
         return andOperation.getExpectedValue();
     }
 

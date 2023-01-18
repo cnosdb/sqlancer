@@ -8,8 +8,7 @@ public class CnosDBSimilarTo implements CnosDBExpression {
     private final CnosDBExpression similarTo;
     private final CnosDBExpression escapeCharacter;
 
-    public CnosDBSimilarTo(CnosDBExpression string, CnosDBExpression similarTo,
-                           CnosDBExpression escapeCharacter) {
+    public CnosDBSimilarTo(CnosDBExpression string, CnosDBExpression similarTo, CnosDBExpression escapeCharacter) {
         this.string = string;
         this.similarTo = similarTo;
         this.escapeCharacter = escapeCharacter;

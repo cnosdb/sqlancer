@@ -60,7 +60,7 @@ public class CnosDBBinaryArithmeticOperation extends BinaryOperatorNode<CnosDBEx
         private String textRepresentation;
 
         private static CnosDBConstant applyBitOperation(CnosDBConstant left, CnosDBConstant right,
-                                                        BinaryOperator<Long> op) {
+                BinaryOperator<Long> op) {
             if (left.isNull() || right.isNull()) {
                 return CnosDBConstant.createNullConstant();
             } else {
@@ -85,16 +85,16 @@ public class CnosDBBinaryArithmeticOperation extends BinaryOperatorNode<CnosDBEx
         public static CnosDBBinaryOperator getRandom(CnosDBDataType dataType) {
             List<CnosDBBinaryOperator> ops = new ArrayList<>(Arrays.asList(values()));
             switch (dataType) {
-                case DOUBLE:
-                case UINT:
-                case STRING:
-                    ops.remove(MODULO);
-                    ops.remove(EXPONENTIATION);
-                    ops.remove(EXPONENTIATION);
-                    ops.remove(MODULO);
-                    break;
-                default:
-                    break;
+            case DOUBLE:
+            case UINT:
+            case STRING:
+                ops.remove(MODULO);
+                ops.remove(EXPONENTIATION);
+                ops.remove(EXPONENTIATION);
+                ops.remove(MODULO);
+                break;
+            default:
+                break;
             }
 
             return Randomly.fromList(ops);
@@ -102,8 +102,7 @@ public class CnosDBBinaryArithmeticOperation extends BinaryOperatorNode<CnosDBEx
 
     }
 
-    public CnosDBBinaryArithmeticOperation(CnosDBExpression left, CnosDBExpression right,
-                                           CnosDBBinaryOperator op) {
+    public CnosDBBinaryArithmeticOperation(CnosDBExpression left, CnosDBExpression right, CnosDBBinaryOperator op) {
         super(left, right, op);
     }
 

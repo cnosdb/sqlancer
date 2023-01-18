@@ -20,7 +20,8 @@ public class CnosDBOtherQuery extends CnosDBQueryAdapter {
     }
 
     @Override
-    public <G extends GlobalState<?, ?, CnosDBConnection>> boolean execute(G globalState, String... fills) throws Exception {
+    public <G extends GlobalState<?, ?, CnosDBConnection>> boolean execute(G globalState, String... fills)
+            throws Exception {
         try {
             globalState.getConnection().getClient().execute(query);
         } catch (Exception e) {

@@ -57,7 +57,6 @@ public class CnosDBTableGenerator {
         return new CnosDBOtherQuery(sb.toString(), new ExpectedErrors());
     }
 
-
     private void createField(String name) throws AssertionError {
         sb.append(name);
         sb.append(" ");
@@ -71,7 +70,7 @@ public class CnosDBTableGenerator {
 
     private void createTag(String name) {
         sb.append(name);
-        var column = new CnosDBTagColumn(name);
+        CnosDBColumn column = new CnosDBTagColumn(name);
         column.setTable(table);
         columnsToBeAdd.add(column);
     }

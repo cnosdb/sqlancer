@@ -21,7 +21,6 @@ public final class CnosDBExpectedValueVisitor implements CnosDBVisitor {
         sb.append("\n");
     }
 
-
     @Override
     public void visit(CnosDBConstant constant) {
         print(constant);

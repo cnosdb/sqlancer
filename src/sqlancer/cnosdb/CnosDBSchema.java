@@ -77,21 +77,21 @@ public class CnosDBSchema extends AbstractSchema<CnosDBGlobalState, CnosDBSchema
 
     public static CnosDBDataType getColumnType(String typeString) {
         switch (typeString.toLowerCase()) {
-            case "bigint":
-                return CnosDBDataType.INT;
-            case "boolean":
-                return CnosDBDataType.BOOLEAN;
-            case "string":
-                return CnosDBDataType.STRING;
-            case "double":
-                return CnosDBDataType.DOUBLE;
-            case "bigint unsigned":
-            case "unsigned":
-                return CnosDBDataType.UINT;
-            case "timestamp":
-                return CnosDBDataType.TIMESTAMP;
-            default:
-                throw new AssertionError(typeString);
+        case "bigint":
+            return CnosDBDataType.INT;
+        case "boolean":
+            return CnosDBDataType.BOOLEAN;
+        case "string":
+            return CnosDBDataType.STRING;
+        case "double":
+            return CnosDBDataType.DOUBLE;
+        case "bigint unsigned":
+        case "unsigned":
+            return CnosDBDataType.UINT;
+        case "timestamp":
+            return CnosDBDataType.TIMESTAMP;
+        default:
+            throw new AssertionError(typeString);
         }
     }
 
@@ -103,8 +103,7 @@ public class CnosDBSchema extends AbstractSchema<CnosDBGlobalState, CnosDBSchema
 
     }
 
-    public static class CnosDBTable
-            extends AbstractTable<CnosDBColumn, TableIndex, CnosDBGlobalState> {
+    public static class CnosDBTable extends AbstractTable<CnosDBColumn, TableIndex, CnosDBGlobalState> {
 
         public CnosDBTable(String tableName, List<CnosDBColumn> columns) {
             super(tableName, columns, null, false);
@@ -112,9 +111,9 @@ public class CnosDBSchema extends AbstractSchema<CnosDBGlobalState, CnosDBSchema
 
         @Override
         public List<CnosDBColumn> getColumns() {
-            var res = super.getColumns();
+            List<CnosDBColumn> res = super.getColumns();
             boolean hasTime = false;
-            for (var column : res) {
+            for (CnosDBColumn column : res) {
                 if (column instanceof CnosDBTimeColumn) {
                     hasTime = true;
                     break;
@@ -128,7 +127,7 @@ public class CnosDBSchema extends AbstractSchema<CnosDBGlobalState, CnosDBSchema
         public List<CnosDBColumn> getRandomColumnsWithOnlyOneField() {
             ArrayList<CnosDBColumn> res = new ArrayList<>();
             boolean hasField = false;
-            for (var column : getColumns()) {
+            for (CnosDBColumn column : getColumns()) {
                 if (column instanceof CnosDBTagColumn && Randomly.getBoolean()) {
                     res.add(column);
                 } else if (column instanceof CnosDBFieldColumn && !hasField) {
@@ -144,7 +143,8 @@ public class CnosDBSchema extends AbstractSchema<CnosDBGlobalState, CnosDBSchema
         public long getNrRows(CnosDBGlobalState globalState) {
             long res;
             try {
-                CnosDBResultSet tableCountRes = globalState.getConnection().getClient().executeQuery("SELECT COUNT(time) FROM " + this.name);
+                CnosDBResultSet tableCountRes = globalState.getConnection().getClient()
+                        .executeQuery("SELECT COUNT(time) FROM " + this.name);
                 tableCountRes.next();
                 res = tableCountRes.getLong(1);
             } catch (Exception e) {
@@ -162,24 +162,21 @@ public class CnosDBSchema extends AbstractSchema<CnosDBGlobalState, CnosDBSchema
             timeColumn.setTable(this);
             selectedColumns.add(timeColumn);
 
-
             remainingColumns.stream().filter(column -> column instanceof CnosDBTagColumn).findFirst().ifPresent(tag -> {
                 selectedColumns.add(tag);
                 remainingColumns.remove(tag);
             });
 
-            remainingColumns.stream().filter(column -> column instanceof CnosDBFieldColumn).findFirst().ifPresent(field -> {
-                selectedColumns.add(field);
-                remainingColumns.remove(field);
-            });
+            remainingColumns.stream().filter(column -> column instanceof CnosDBFieldColumn).findFirst()
+                    .ifPresent(field -> {
+                        selectedColumns.add(field);
+                        remainingColumns.remove(field);
+                    });
 
             int nr = Math.min(Randomly.smallNumber() + 1, remainingColumns.size());
             for (int i = 0; i < nr; i++) {
-                selectedColumns.add(
-                        remainingColumns.remove(
-                                (int) Randomly.getNotCachedInteger(0, remainingColumns.size())
-                        )
-                );
+                selectedColumns
+                        .add(remainingColumns.remove((int) Randomly.getNotCachedInteger(0, remainingColumns.size())));
             }
             return selectedColumns;
         }

@@ -1,6 +1,5 @@
 package sqlancer.cnosdb.client;
 
-
 import com.arangodb.internal.util.IOUtils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.http.HttpHeaders;
@@ -64,8 +63,7 @@ public class CnosDBClient {
             throw new Exception(database + ":" + query + "\n" + text);
         }
         resp.close();
-        InputStream stream = new ByteArrayInputStream(text.getBytes
-                (Charset.forName("UTF-8")));
+        InputStream stream = new ByteArrayInputStream(text.getBytes(Charset.forName("UTF-8")));
 
         return new CnosDBResultSet(new InputStreamReader(stream));
     }
@@ -92,8 +90,7 @@ public class CnosDBClient {
 
     private String getAuth() {
         String auth = userName + ":" + password;
-        byte[] encodedAuth = Base64.encodeBase64(
-                auth.getBytes(StandardCharsets.ISO_8859_1));
+        byte[] encodedAuth = Base64.encodeBase64(auth.getBytes(StandardCharsets.ISO_8859_1));
         return "Basic " + new String(encodedAuth);
 
     }

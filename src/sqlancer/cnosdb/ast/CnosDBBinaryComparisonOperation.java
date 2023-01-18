@@ -114,7 +114,7 @@ public class CnosDBBinaryComparisonOperation
     }
 
     public CnosDBBinaryComparisonOperation(CnosDBExpression left, CnosDBExpression right,
-                                           CnosDBBinaryComparisonOperator op) {
+            CnosDBBinaryComparisonOperator op) {
         super(left, right, op);
     }
 

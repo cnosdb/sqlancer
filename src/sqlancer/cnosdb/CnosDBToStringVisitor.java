@@ -63,19 +63,19 @@ public final class CnosDBToStringVisitor extends ToStringVisitor<CnosDBExpressio
     public void visit(CnosDBSelect s) {
         sb.append("SELECT ");
         switch (s.getSelectOption()) {
-            case DISTINCT:
-                sb.append("DISTINCT ");
-                if (s.getDistinctOnClause() != null) {
-                    sb.append("ON (");
-                    visit(s.getDistinctOnClause());
-                    sb.append(") ");
-                }
-                break;
-            case ALL:
-                sb.append(Randomly.fromOptions("ALL ", ""));
-                break;
-            default:
-                throw new AssertionError();
+        case DISTINCT:
+            sb.append("DISTINCT ");
+            if (s.getDistinctOnClause() != null) {
+                sb.append("ON (");
+                visit(s.getDistinctOnClause());
+                sb.append(") ");
+            }
+            break;
+        case ALL:
+            sb.append(Randomly.fromOptions("ALL ", ""));
+            break;
+        default:
+            throw new AssertionError();
         }
         if (s.getFetchColumns() == null) {
             sb.append("*");
@@ -88,33 +88,33 @@ public final class CnosDBToStringVisitor extends ToStringVisitor<CnosDBExpressio
         for (CnosDBJoin j : s.getJoinClauses()) {
             sb.append(" ");
             switch (j.getType()) {
-                case INNER:
-                    if (Randomly.getBoolean()) {
-                        sb.append("INNER ");
-                    }
-                    sb.append("JOIN");
-                    break;
-                case LEFT:
-                    sb.append("LEFT OUTER JOIN");
-                    break;
-                case RIGHT:
-                    sb.append("RIGHT OUTER JOIN");
-                    break;
-                case FULL:
-                    sb.append("FULL OUTER JOIN");
-                    break;
-//                case CROSS:
-//                    sb.append("CROSS JOIN");
-//                    break;
-                default:
-                    throw new AssertionError(j.getType());
+            case INNER:
+                if (Randomly.getBoolean()) {
+                    sb.append("INNER ");
+                }
+                sb.append("JOIN");
+                break;
+            case LEFT:
+                sb.append("LEFT OUTER JOIN");
+                break;
+            case RIGHT:
+                sb.append("RIGHT OUTER JOIN");
+                break;
+            case FULL:
+                sb.append("FULL OUTER JOIN");
+                break;
+            // case CROSS:
+            // sb.append("CROSS JOIN");
+            // break;
+            default:
+                throw new AssertionError(j.getType());
             }
             sb.append(" ");
             visit(j.getTableReference());
-//            if (j.getType() != CnosDBJoinType.CROSS) {
+            // if (j.getType() != CnosDBJoinType.CROSS) {
             sb.append(" ON ");
             visit(j.getOnClause());
-//            }
+            // }
         }
 
         if (s.getWhereClause() != null) {
@@ -178,27 +178,27 @@ public final class CnosDBToStringVisitor extends ToStringVisitor<CnosDBExpressio
     private void appendType(CnosDBCastOperation cast) {
         CnosDBCompoundDataType compoundType = cast.getCompoundType();
         switch (compoundType.getDataType()) {
-            case BOOLEAN:
-                sb.append("BOOLEAN");
-                break;
-            case INT:
-                sb.append("BIGINT");
-                break;
-            case STRING:
-                sb.append(Randomly.fromOptions("STRING"));
-                break;
-            case DOUBLE:
-                sb.append("DOUBLE");
-                break;
-            case UINT:
-                sb.append("BIGINT UNSIGNED");
-                break;
-            case TIMESTAMP:
-                sb.append("TIMESTAMP");
-                break;
+        case BOOLEAN:
+            sb.append("BOOLEAN");
+            break;
+        case INT:
+            sb.append("BIGINT");
+            break;
+        case STRING:
+            sb.append(Randomly.fromOptions("STRING"));
+            break;
+        case DOUBLE:
+            sb.append("DOUBLE");
+            break;
+        case UINT:
+            sb.append("BIGINT UNSIGNED");
+            break;
+        case TIMESTAMP:
+            sb.append("TIMESTAMP");
+            break;
 
-            default:
-                throw new AssertionError(cast.getType());
+        default:
+            throw new AssertionError(cast.getType());
         }
     }
 

@@ -14,8 +14,7 @@ import sqlancer.common.query.ExpectedErrors;
 import java.util.Objects;
 
 @AutoService(DatabaseProvider.class)
-public class CnosDBProvider
-        extends ProviderAdapter<CnosDBGlobalState, CnosDBOptions, CnosDBConnection> {
+public class CnosDBProvider extends ProviderAdapter<CnosDBGlobalState, CnosDBOptions, CnosDBConnection> {
 
     protected String username;
     protected String password;
@@ -100,13 +99,12 @@ public class CnosDBProvider
     protected void prepareTables(CnosDBGlobalState globalState) throws Exception {
         StatementExecutor<CnosDBGlobalState, Action> se = new StatementExecutor<>(globalState, Action.values(),
                 CnosDBProvider::mapActions, (q) -> {
-            if (globalState.getSchema().getDatabaseTables().isEmpty()) {
-                throw new IgnoreMeException();
-            }
-        });
+                    if (globalState.getSchema().getDatabaseTables().isEmpty()) {
+                        throw new IgnoreMeException();
+                    }
+                });
         se.executeStatements();
     }
-
 
     @Override
     public String getDBMSName() {

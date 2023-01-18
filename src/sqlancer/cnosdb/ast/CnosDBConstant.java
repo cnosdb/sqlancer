@@ -50,8 +50,7 @@ public abstract class CnosDBConstant implements CnosDBExpression {
             } else if (rightVal.isBoolean()) {
                 return CnosDBConstant.createBooleanConstant(value == rightVal.asBoolean());
             } else if (rightVal.isString()) {
-                return CnosDBConstant
-                        .createBooleanConstant(value == rightVal.cast(CnosDBDataType.BOOLEAN).asBoolean());
+                return CnosDBConstant.createBooleanConstant(value == rightVal.cast(CnosDBDataType.BOOLEAN).asBoolean());
             } else {
                 throw new AssertionError(rightVal);
             }
@@ -72,16 +71,16 @@ public abstract class CnosDBConstant implements CnosDBExpression {
         @Override
         public CnosDBConstant cast(CnosDBDataType type) {
             switch (type) {
-                case BOOLEAN:
-                    return this;
-                case INT:
-                    return CnosDBConstant.createIntConstant(value ? 1 : 0);
-                case UINT:
-                    return CnosDBConstant.createUintConstant(value ? 1 : 0);
-                case STRING:
-                    return CnosDBConstant.createStringConstant(value ? "true" : "false");
-                default:
-                    return null;
+            case BOOLEAN:
+                return this;
+            case INT:
+                return CnosDBConstant.createIntConstant(value ? 1 : 0);
+            case UINT:
+                return CnosDBConstant.createUintConstant(value ? 1 : 0);
+            case STRING:
+                return CnosDBConstant.createStringConstant(value ? "true" : "false");
+            default:
+                return null;
             }
         }
 
@@ -170,57 +169,57 @@ public abstract class CnosDBConstant implements CnosDBExpression {
             }
             String s = value.trim();
             switch (type) {
-                case BOOLEAN:
-                    try {
-                        return CnosDBConstant.createBooleanConstant(Long.parseLong(s) != 0);
-                    } catch (NumberFormatException e) {
-                    }
-                    switch (s.toUpperCase()) {
-                        case "T":
-                        case "TR":
-                        case "TRU":
-                        case "TRUE":
-                        case "1":
-                        case "YES":
-                        case "YE":
-                        case "Y":
-                        case "ON":
-                            return CnosDBConstant.createTrue();
-                        case "F":
-                        case "FA":
-                        case "FAL":
-                        case "FALS":
-                        case "FALSE":
-                        case "N":
-                        case "NO":
-                        case "OF":
-                        case "OFF":
-                        default:
-                            return CnosDBConstant.createFalse();
-                    }
-                case INT:
-                    try {
-                        return CnosDBConstant.createIntConstant(Long.parseLong(s));
-                    } catch (NumberFormatException e) {
-                        return CnosDBConstant.createIntConstant(-1);
-                    }
-                case STRING:
-                    return this;
-                case UINT:
-                    try {
-                        return CnosDBConstant.createUintConstant(Long.parseUnsignedLong(s));
-                    } catch (NumberFormatException e) {
-                        return CnosDBConstant.createUintConstant(0);
-                    }
-                case DOUBLE:
-                    try {
-                        return CnosDBConstant.createDoubleConstant(Double.parseDouble(s));
-                    } catch (NumberFormatException e) {
-                        return CnosDBConstant.createDoubleConstant(0.0);
-                    }
-
+            case BOOLEAN:
+                try {
+                    return CnosDBConstant.createBooleanConstant(Long.parseLong(s) != 0);
+                } catch (NumberFormatException e) {
+                }
+                switch (s.toUpperCase()) {
+                case "T":
+                case "TR":
+                case "TRU":
+                case "TRUE":
+                case "1":
+                case "YES":
+                case "YE":
+                case "Y":
+                case "ON":
+                    return CnosDBConstant.createTrue();
+                case "F":
+                case "FA":
+                case "FAL":
+                case "FALS":
+                case "FALSE":
+                case "N":
+                case "NO":
+                case "OF":
+                case "OFF":
                 default:
-                    return null;
+                    return CnosDBConstant.createFalse();
+                }
+            case INT:
+                try {
+                    return CnosDBConstant.createIntConstant(Long.parseLong(s));
+                } catch (NumberFormatException e) {
+                    return CnosDBConstant.createIntConstant(-1);
+                }
+            case STRING:
+                return this;
+            case UINT:
+                try {
+                    return CnosDBConstant.createUintConstant(Long.parseUnsignedLong(s));
+                } catch (NumberFormatException e) {
+                    return CnosDBConstant.createUintConstant(0);
+                }
+            case DOUBLE:
+                try {
+                    return CnosDBConstant.createDoubleConstant(Double.parseDouble(s));
+                } catch (NumberFormatException e) {
+                    return CnosDBConstant.createDoubleConstant(0.0);
+                }
+
+            default:
+                return null;
             }
         }
 
@@ -278,7 +277,6 @@ public abstract class CnosDBConstant implements CnosDBExpression {
             return val;
         }
 
-
         public double asDouble() {
             return val;
         }
@@ -324,18 +322,18 @@ public abstract class CnosDBConstant implements CnosDBExpression {
         @Override
         public CnosDBConstant cast(CnosDBDataType type) {
             switch (type) {
-                case BOOLEAN:
-                    return CnosDBConstant.createBooleanConstant(val != 0);
-                case INT:
-                    return CnosDBConstant.createIntConstant(val);
-                case STRING:
-                    return CnosDBConstant.createStringConstant(String.valueOf(val));
-                case UINT:
-                    return CnosDBConstant.createUintConstant(val);
-                case DOUBLE:
-                    return CnosDBConstant.createDoubleConstant(val);
-                default:
-                    return null;
+            case BOOLEAN:
+                return CnosDBConstant.createBooleanConstant(val != 0);
+            case INT:
+                return CnosDBConstant.createIntConstant(val);
+            case STRING:
+                return CnosDBConstant.createStringConstant(String.valueOf(val));
+            case UINT:
+                return CnosDBConstant.createUintConstant(val);
+            case DOUBLE:
+                return CnosDBConstant.createDoubleConstant(val);
+            default:
+                return null;
             }
         }
     }
@@ -383,12 +381,12 @@ public abstract class CnosDBConstant implements CnosDBExpression {
         @Override
         public CnosDBConstant cast(CnosDBDataType type) {
             switch (type) {
-                case INT:
-                    return createIntConstant(val);
-                case STRING:
-                    return CnosDBConstant.createStringConstant(dateFormat.format(new Date(val)));
-                default:
-                    return null;
+            case INT:
+                return createIntConstant(val);
+            case STRING:
+                return CnosDBConstant.createStringConstant(dateFormat.format(new Date(val)));
+            default:
+                return null;
             }
         }
 
@@ -540,7 +538,6 @@ public abstract class CnosDBConstant implements CnosDBExpression {
             return null;
         }
     }
-
 
     public static CnosDBConstant createDoubleConstant(double val) {
         return new DoubleConstant(val);

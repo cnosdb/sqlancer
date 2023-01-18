@@ -28,7 +28,7 @@ public enum CnosDBFunctionWithUnknownResult {
     RPAD2("rpad", CnosDBDataType.STRING, CnosDBDataType.STRING, CnosDBDataType.INT),
     LTRIM("ltrim", CnosDBDataType.STRING, CnosDBDataType.STRING, CnosDBDataType.STRING),
     OCTET_LENGTH("octet_length", CnosDBDataType.INT, CnosDBDataType.STRING),
-    //    REPEAT("repeat", CnosDBDataType.STRING, CnosDBDataType.STRING, CnosDBDataType.INT),
+    // REPEAT("repeat", CnosDBDataType.STRING, CnosDBDataType.STRING, CnosDBDataType.INT),
     REPLACE("replace", CnosDBDataType.STRING, CnosDBDataType.STRING, CnosDBDataType.STRING, CnosDBDataType.STRING),
     REVERSE("reverse", CnosDBDataType.STRING, CnosDBDataType.STRING),
     RIGHT("right", CnosDBDataType.STRING, CnosDBDataType.STRING, CnosDBDataType.INT),
@@ -46,8 +46,7 @@ public enum CnosDBFunctionWithUnknownResult {
     // mathematical functions
     ABS("abs", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
     CEIL("ceil", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
-    EXP("exp", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
-    LN("ln", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
+    EXP("exp", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE), LN("ln", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
     LOG2("log2", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
     LOG10("log10", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
     POWER("power", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
@@ -58,21 +57,20 @@ public enum CnosDBFunctionWithUnknownResult {
     ACOS("acos", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
     ASIN("asin", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
     ATAN2("atan2", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
-    COS("cos", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
-    SIN("sin", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
+    COS("cos", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE), SIN("sin", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
     SQRT("sqrt", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
     TAN("tan", CnosDBDataType.DOUBLE, CnosDBDataType.DOUBLE),
     DATA_PART("date_part", CnosDBDataType.INT, CnosDBDataType.STRING, CnosDBDataType.TIMESTAMP),
 
-
-//    because bug of arrow-csv https://github.com/apache/arrow-rs/issues/3547
-//    NOW("now", CnosDBDataType.TIMESTAMP),
-//    TO_TIMESTAMP("to_timestamp", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
-//    TO_TIMESTAMP_MILLIS("to_timestamp_millis", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
-//    TO_TIMESTAMP_MICROS("to_timestamp_micros", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
-//    TO_TIMESTAMP_SECONDS("to_timestamp_seconds", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
-//    DATA_TRUNC("date_trunc", CnosDBDataType.TIMESTAMP, CnosDBDataType.STRING, CnosDBDataType.TIMESTAMP),
+    // because bug of arrow-csv https://github.com/apache/arrow-rs/issues/3547
+    // NOW("now", CnosDBDataType.TIMESTAMP),
+    // TO_TIMESTAMP("to_timestamp", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
+    // TO_TIMESTAMP_MILLIS("to_timestamp_millis", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
+    // TO_TIMESTAMP_MICROS("to_timestamp_micros", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
+    // TO_TIMESTAMP_SECONDS("to_timestamp_seconds", CnosDBDataType.TIMESTAMP, CnosDBDataType.INT),
+    // DATA_TRUNC("date_trunc", CnosDBDataType.TIMESTAMP, CnosDBDataType.STRING, CnosDBDataType.TIMESTAMP),
     ;
+
     private final String functionName;
     private final CnosDBDataType returnType;
     private final CnosDBDataType[] argTypes;

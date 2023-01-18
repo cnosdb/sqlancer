@@ -43,7 +43,7 @@ public class CnosDBTLPBase extends TernaryLogicPartitioningOracleBase<CnosDBExpr
     }
 
     protected List<CnosDBJoin> getJoinStatements(CnosDBGlobalState globalState, List<CnosDBColumn> columns,
-                                                 List<CnosDBTable> tables) {
+            List<CnosDBTable> tables) {
         return CnosDBNoRECOracle.getJoinStatements(state, columns, tables);
         // TODO joins
     }
@@ -60,7 +60,6 @@ public class CnosDBTLPBase extends TernaryLogicPartitioningOracleBase<CnosDBExpr
         select.setJoinClauses(joins);
     }
 
-
     List<CnosDBExpression> generateFetchColumns() {
         if (Randomly.getBooleanWithRatherLowProbability()) {
             return Arrays.asList(new CnosDBColumnValue(CnosDBColumn.createDummy("*"), null));
@@ -68,7 +67,10 @@ public class CnosDBTLPBase extends TernaryLogicPartitioningOracleBase<CnosDBExpr
         List<CnosDBExpression> fetchColumns = new ArrayList<>();
         List<CnosDBColumn> targetColumns = targetTables.getRandomColumnsWithOnlyOneField();
 
-        List<CnosDBColumn> columns = targetColumns.stream().map(c -> c.getTable().getColumns().stream().filter(f -> f instanceof CnosDBSchema.CnosDBFieldColumn).findFirst().get()).collect(Collectors.toList());
+        List<CnosDBColumn> columns = targetColumns
+                .stream().map(c -> c.getTable().getColumns().stream()
+                        .filter(f -> f instanceof CnosDBSchema.CnosDBFieldColumn).findFirst().get())
+                .collect(Collectors.toList());
         targetColumns.addAll(columns);
 
         targetColumns = targetColumns.stream().distinct().collect(Collectors.toList());
@@ -103,8 +105,7 @@ public class CnosDBTLPBase extends TernaryLogicPartitioningOracleBase<CnosDBExpr
         if (Randomly.getBoolean()) {
             select.setLimitClause(CnosDBConstant.createIntConstant(Randomly.getPositiveOrZeroNonCachedInteger()));
             if (Randomly.getBoolean()) {
-                select.setOffsetClause(
-                        CnosDBConstant.createIntConstant(Randomly.getPositiveOrZeroNonCachedInteger()));
+                select.setOffsetClause(CnosDBConstant.createIntConstant(Randomly.getPositiveOrZeroNonCachedInteger()));
             }
         }
         return new CnosDBSubquery(select, name);

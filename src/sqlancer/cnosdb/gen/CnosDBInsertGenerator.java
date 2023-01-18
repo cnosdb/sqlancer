@@ -38,7 +38,7 @@ public final class CnosDBInsertGenerator {
             insertRow(globalState, sb, columns);
         }
 
-        //error
+        // error
         return new CnosDBOtherQuery(sb.toString(), errors);
     }
 

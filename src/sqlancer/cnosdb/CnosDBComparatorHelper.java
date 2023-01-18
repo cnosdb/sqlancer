@@ -13,7 +13,6 @@ import java.util.Set;
 import java.util.function.UnaryOperator;
 import java.util.stream.Collectors;
 
-
 public class CnosDBComparatorHelper {
     public static boolean isEqualDouble(String first, String second) {
         try {
@@ -34,7 +33,7 @@ public class CnosDBComparatorHelper {
     }
 
     public static List<String> getResultSetFirstColumnAsString(String queryString, ExpectedErrors errors,
-                                                               CnosDBGlobalState state) throws Exception {
+            CnosDBGlobalState state) throws Exception {
         if (state.getOptions().logEachSelect()) {
             // TODO: refactor me
             state.getLogger().writeCurrent(queryString);
@@ -62,7 +61,6 @@ public class CnosDBComparatorHelper {
                 throw e;
             }
             if (e instanceof NumberFormatException) {
-                // https://github.com/tidb-challenge-program/bug-hunting-issue/issues/57
                 throw new IgnoreMeException();
             }
             if (e.getMessage() == null) {
@@ -78,7 +76,7 @@ public class CnosDBComparatorHelper {
     }
 
     public static void assumeResultSetsAreEqual(List<String> resultSet, List<String> secondResultSet,
-                                                String originalQueryString, List<String> combinedString, CnosDBGlobalState state) {
+            String originalQueryString, List<String> combinedString, CnosDBGlobalState state) {
         if (resultSet.size() != secondResultSet.size()) {
             String queryFormatString = "-- %s;\n-- cardinality: %d";
             String firstQueryString = String.format(queryFormatString, originalQueryString, resultSet.size());
@@ -111,8 +109,8 @@ public class CnosDBComparatorHelper {
     }
 
     public static void assumeResultSetsAreEqual(List<String> resultSet, List<String> secondResultSet,
-                                                String originalQueryString, List<String> combinedString, CnosDBGlobalState state,
-                                                UnaryOperator<String> canonicalizationRule) {
+            String originalQueryString, List<String> combinedString, CnosDBGlobalState state,
+            UnaryOperator<String> canonicalizationRule) {
         // Overloaded version of assumeResultSetsAreEqual that takes a canonicalization function which is applied to
         // both result sets before their comparison.
         List<String> canonicalizedResultSet = resultSet.stream().map(canonicalizationRule).collect(Collectors.toList());
@@ -123,8 +121,8 @@ public class CnosDBComparatorHelper {
     }
 
     public static List<String> getCombinedResultSet(String firstQueryString, String secondQueryString,
-                                                    String thirdQueryString, List<String> combinedString, boolean asUnion, CnosDBGlobalState state,
-                                                    ExpectedErrors errors) throws Exception {
+            String thirdQueryString, List<String> combinedString, boolean asUnion, CnosDBGlobalState state,
+            ExpectedErrors errors) throws Exception {
         List<String> secondResultSet;
         if (asUnion) {
             String unionString = firstQueryString + " UNION ALL " + secondQueryString + " UNION ALL "
@@ -144,8 +142,8 @@ public class CnosDBComparatorHelper {
     }
 
     public static List<String> getCombinedResultSetNoDuplicates(String firstQueryString, String secondQueryString,
-                                                                String thirdQueryString, List<String> combinedString, boolean asUnion, CnosDBGlobalState state,
-                                                                ExpectedErrors errors) throws Exception {
+            String thirdQueryString, List<String> combinedString, boolean asUnion, CnosDBGlobalState state,
+            ExpectedErrors errors) throws Exception {
         String unionString;
         if (asUnion) {
             unionString = firstQueryString + " UNION " + secondQueryString + " UNION " + thirdQueryString;

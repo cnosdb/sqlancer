@@ -28,7 +28,8 @@ public class CnosDBTLPWhereOracle extends CnosDBTLPBase {
             select.setOrderByExpressions(gen.generateOrderBy());
         }
         String originalQueryString = CnosDBVisitor.asString(select);
-        List<String> resultSet = CnosDBComparatorHelper.getResultSetFirstColumnAsString(originalQueryString, errors, state);
+        List<String> resultSet = CnosDBComparatorHelper.getResultSetFirstColumnAsString(originalQueryString, errors,
+                state);
 
         select.setOrderByExpressions(Collections.emptyList());
         select.setWhereClause(predicate);

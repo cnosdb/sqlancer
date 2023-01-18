@@ -25,7 +25,6 @@ public class CnosDBSelect extends SelectBase<CnosDBExpression> implements CnosDB
             return t;
         }
 
-
         @Override
         public CnosDBDataType getExpressionType() {
             return null;

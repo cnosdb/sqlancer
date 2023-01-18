@@ -9,8 +9,7 @@ public class CnosDBPostfixText implements CnosDBExpression {
     private final CnosDBConstant expectedValue;
     private final CnosDBDataType type;
 
-    public CnosDBPostfixText(CnosDBExpression expr, String text, CnosDBConstant expectedValue,
-                             CnosDBDataType type) {
+    public CnosDBPostfixText(CnosDBExpression expr, String text, CnosDBConstant expectedValue, CnosDBDataType type) {
         this.expr = expr;
         this.text = text;
         this.expectedValue = expectedValue;

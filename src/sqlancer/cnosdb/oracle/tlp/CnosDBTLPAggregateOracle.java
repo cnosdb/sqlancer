@@ -65,18 +65,18 @@ public class CnosDBTLPAggregateOracle extends CnosDBTLPBase implements TestOracl
         state.getState().getLocalState().log(String.format("%s\n%s", firstQueryString, secondQueryString));
         if (firstResult == null && secondResult != null || firstResult != null && secondResult == null
                 || firstResult != null && !firstResult.contentEquals(secondResult)
-                && !ComparatorHelper.isEqualDouble(firstResult, secondResult)) {
+                        && !ComparatorHelper.isEqualDouble(firstResult, secondResult)) {
             if (secondResult != null && secondResult.contains("Inf")) {
                 throw new IgnoreMeException(); // FIXME: average computation
             }
-            String assertionMessage = String.format("%s: the results mismatch!\n%s\n%s", this.s.getDatabaseName(), firstQueryString,
-                    secondQueryString);
+            String assertionMessage = String.format("%s: the results mismatch!\n%s\n%s", this.s.getDatabaseName(),
+                    firstQueryString, secondQueryString);
             throw new AssertionError(assertionMessage);
         }
     }
 
     private String createMetamorphicUnionQuery(CnosDBSelect select, CnosDBAggregate aggregate,
-                                               List<CnosDBExpression> from) {
+            List<CnosDBExpression> from) {
         String metamorphicQuery;
         CnosDBExpression whereClause = gen.generateExpression(CnosDBDataType.BOOLEAN);
         CnosDBExpression negatedClause = new CnosDBPrefixOperation(whereClause, PrefixOperator.NOT);
@@ -86,8 +86,8 @@ public class CnosDBTLPAggregateOracle extends CnosDBTLPBase implements TestOracl
         CnosDBSelect middleSelect = getSelect(mappedAggregate, from, negatedClause, select.getJoinClauses());
         CnosDBSelect rightSelect = getSelect(mappedAggregate, from, notNullClause, select.getJoinClauses());
         metamorphicQuery = "SELECT " + getOuterAggregateFunction(aggregate) + " FROM (";
-        metamorphicQuery += CnosDBVisitor.asString(leftSelect) + " UNION ALL "
-                + CnosDBVisitor.asString(middleSelect) + " UNION ALL " + CnosDBVisitor.asString(rightSelect);
+        metamorphicQuery += CnosDBVisitor.asString(leftSelect) + " UNION ALL " + CnosDBVisitor.asString(middleSelect)
+                + " UNION ALL " + CnosDBVisitor.asString(rightSelect);
         metamorphicQuery += ") as asdf";
         return metamorphicQuery;
     }
@@ -130,15 +130,15 @@ public class CnosDBTLPAggregateOracle extends CnosDBTLPBase implements TestOracl
 
     private List<CnosDBExpression> mapped(CnosDBAggregate aggregate) {
         switch (aggregate.getFunction()) {
-            case SUM:
-            case MAX:
-            case MIN:
-                return aliasArgs(List.of(aggregate));
-            // now not support
-            // case COUNT:
-            // case AVG:
-            default:
-                throw new AssertionError(aggregate.getFunction());
+        case SUM:
+        case MAX:
+        case MIN:
+            return aliasArgs(List.of(aggregate));
+        // now not support
+        // case COUNT:
+        // case AVG:
+        default:
+            throw new AssertionError(aggregate.getFunction());
         }
     }
 
@@ -159,7 +159,7 @@ public class CnosDBTLPAggregateOracle extends CnosDBTLPBase implements TestOracl
     }
 
     private CnosDBSelect getSelect(List<CnosDBExpression> aggregates, List<CnosDBExpression> from,
-                                   CnosDBExpression whereClause, List<CnosDBJoin> joinList) {
+            CnosDBExpression whereClause, List<CnosDBJoin> joinList) {
         CnosDBSelect leftSelect = new CnosDBSelect();
         leftSelect.setFetchColumns(aggregates);
         leftSelect.setFromList(from);

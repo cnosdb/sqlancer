@@ -1,6 +1,5 @@
 package sqlancer.cnosdb.client;
 
-
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 import sqlancer.IgnoreMeException;
@@ -14,7 +13,8 @@ public class CnosDBResultSet {
     private CSVRecord next = null;
 
     public CnosDBResultSet(Reader in) throws Exception {
-        Iterable<CSVRecord> records = CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).build().parse(in);
+        Iterable<CSVRecord> records = CSVFormat.DEFAULT.builder().setHeader().setSkipHeaderRecord(true).build()
+                .parse(in);
         this.records = records.iterator();
     }
 
@@ -44,8 +44,8 @@ public class CnosDBResultSet {
         return Long.parseLong(next.get(i - 1));
     }
 
-//    public boolean getBool(int i) throws Exception {
-//        return Boolean.parseBoolean(getString(i));
-//    }
+    // public boolean getBool(int i) throws Exception {
+    // return Boolean.parseBoolean(getString(i));
+    // }
 
 }

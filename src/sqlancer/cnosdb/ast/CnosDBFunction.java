@@ -16,8 +16,7 @@ public class CnosDBFunction implements CnosDBExpression {
         this.args = args.clone();
     }
 
-    public CnosDBFunction(CnosDBFunctionWithUnknownResult f, CnosDBDataType returnType,
-                          CnosDBExpression... args) {
+    public CnosDBFunction(CnosDBFunctionWithUnknownResult f, CnosDBDataType returnType, CnosDBExpression... args) {
         this.func = f.getName();
         this.returnType = returnType;
         this.args = args.clone();
@@ -50,7 +49,7 @@ public class CnosDBFunction implements CnosDBExpression {
 
             @Override
             public CnosDBDataType[] getInputTypesForReturnType(CnosDBDataType returnType, int nrArguments) {
-                return new CnosDBDataType[]{returnType};
+                return new CnosDBDataType[] { returnType };
             }
 
         },
@@ -72,7 +71,7 @@ public class CnosDBFunction implements CnosDBExpression {
 
             @Override
             public CnosDBDataType[] getInputTypesForReturnType(CnosDBDataType returnType, int nrArguments) {
-                return new CnosDBDataType[]{CnosDBDataType.STRING};
+                return new CnosDBDataType[] { CnosDBDataType.STRING };
             }
 
         },
@@ -93,7 +92,7 @@ public class CnosDBFunction implements CnosDBExpression {
 
             @Override
             public CnosDBDataType[] getInputTypesForReturnType(CnosDBDataType returnType, int nrArguments) {
-                return new CnosDBDataType[]{CnosDBDataType.STRING};
+                return new CnosDBDataType[] { CnosDBDataType.STRING };
             }
         },
         UPPER(1, "upper") {
@@ -114,7 +113,7 @@ public class CnosDBFunction implements CnosDBExpression {
 
             @Override
             public CnosDBDataType[] getInputTypesForReturnType(CnosDBDataType returnType, int nrArguments) {
-                return new CnosDBDataType[]{CnosDBDataType.STRING};
+                return new CnosDBDataType[] { CnosDBDataType.STRING };
             }
 
         },
@@ -152,62 +151,62 @@ public class CnosDBFunction implements CnosDBExpression {
         // }
         //
         // },
-//        NUM_NONNULLS(1, "num_nonnulls") {
-//            @Override
-//            public CnosDBConstant apply(CnosDBConstant[] args, CnosDBExpression... origArgs) {
-//                int nr = 0;
-//                for (CnosDBConstant c : args) {
-//                    if (!c.isNull()) {
-//                        nr++;
-//                    }
-//                }
-//                return CnosDBConstant.createIntConstant(nr);
-//            }
-//
-//            @Override
-//            public CnosDBDataType[] getInputTypesForReturnType(CnosDBDataType returnType, int nrArguments) {
-//                return getRandomTypes(nrArguments);
-//            }
-//
-//            @Override
-//            public boolean supportsReturnType(CnosDBDataType type) {
-//                return type == CnosDBDataType.INT;
-//            }
-//
-//            @Override
-//            public boolean isVariadic() {
-//                return true;
-//            }
-//
-//        },
-//        NUM_NULLS(1, "num_nulls") {
-//            @Override
-//            public CnosDBConstant apply(CnosDBConstant[] args, CnosDBExpression... origArgs) {
-//                int nr = 0;
-//                for (CnosDBConstant c : args) {
-//                    if (c.isNull()) {
-//                        nr++;
-//                    }
-//                }
-//                return CnosDBConstant.createIntConstant(nr);
-//            }
-//
-//            @Override
-//            public CnosDBDataType[] getInputTypesForReturnType(CnosDBDataType returnType, int nrArguments) {
-//                return getRandomTypes(nrArguments);
-//            }
-//
-//            @Override
-//            public boolean supportsReturnType(CnosDBDataType type) {
-//                return type == CnosDBDataType.INT;
-//            }
-//
-//            @Override
-//            public boolean isVariadic() {
-//                return true;
-//            }
-//
-//        }
+        // NUM_NONNULLS(1, "num_nonnulls") {
+        // @Override
+        // public CnosDBConstant apply(CnosDBConstant[] args, CnosDBExpression... origArgs) {
+        // int nr = 0;
+        // for (CnosDBConstant c : args) {
+        // if (!c.isNull()) {
+        // nr++;
+        // }
+        // }
+        // return CnosDBConstant.createIntConstant(nr);
+        // }
+        //
+        // @Override
+        // public CnosDBDataType[] getInputTypesForReturnType(CnosDBDataType returnType, int nrArguments) {
+        // return getRandomTypes(nrArguments);
+        // }
+        //
+        // @Override
+        // public boolean supportsReturnType(CnosDBDataType type) {
+        // return type == CnosDBDataType.INT;
+        // }
+        //
+        // @Override
+        // public boolean isVariadic() {
+        // return true;
+        // }
+        //
+        // },
+        // NUM_NULLS(1, "num_nulls") {
+        // @Override
+        // public CnosDBConstant apply(CnosDBConstant[] args, CnosDBExpression... origArgs) {
+        // int nr = 0;
+        // for (CnosDBConstant c : args) {
+        // if (c.isNull()) {
+        // nr++;
+        // }
+        // }
+        // return CnosDBConstant.createIntConstant(nr);
+        // }
+        //
+        // @Override
+        // public CnosDBDataType[] getInputTypesForReturnType(CnosDBDataType returnType, int nrArguments) {
+        // return getRandomTypes(nrArguments);
+        // }
+        //
+        // @Override
+        // public boolean supportsReturnType(CnosDBDataType type) {
+        // return type == CnosDBDataType.INT;
+        // }
+        //
+        // @Override
+        // public boolean isVariadic() {
+        // return true;
+        // }
+        //
+        // }
         ;
 
         private String functionName;

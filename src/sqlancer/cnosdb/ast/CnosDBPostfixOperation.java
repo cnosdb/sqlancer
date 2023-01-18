@@ -11,7 +11,7 @@ public class CnosDBPostfixOperation implements CnosDBExpression {
     private final String operatorTextRepresentation;
 
     public enum PostfixOperator implements Operator {
-        IS_NULL("IS NULL"/*, "ISNULL"*/) {
+        IS_NULL("IS NULL"/* , "ISNULL" */) {
             @Override
             public CnosDBConstant apply(CnosDBConstant expectedValue) {
                 return CnosDBConstant.createBooleanConstant(expectedValue.isNull());
@@ -31,11 +31,11 @@ public class CnosDBPostfixOperation implements CnosDBExpression {
 
             @Override
             public CnosDBDataType[] getInputDataTypes() {
-                return new CnosDBDataType[]{CnosDBDataType.BOOLEAN};
+                return new CnosDBDataType[] { CnosDBDataType.BOOLEAN };
             }
         },
 
-        IS_NOT_NULL("IS NOT NULL"/*"NOTNULL"*/) {
+        IS_NOT_NULL("IS NOT NULL"/* "NOTNULL" */) {
             @Override
             public CnosDBConstant apply(CnosDBConstant expectedValue) {
                 return CnosDBConstant.createBooleanConstant(!expectedValue.isNull());
@@ -55,7 +55,7 @@ public class CnosDBPostfixOperation implements CnosDBExpression {
 
             @Override
             public CnosDBDataType[] getInputDataTypes() {
-                return new CnosDBDataType[]{CnosDBDataType.BOOLEAN};
+                return new CnosDBDataType[] { CnosDBDataType.BOOLEAN };
             }
         },
         IS_TRUE("IS TRUE") {
@@ -64,14 +64,13 @@ public class CnosDBPostfixOperation implements CnosDBExpression {
                 if (expectedValue.isNull()) {
                     return CnosDBConstant.createFalse();
                 } else {
-                    return CnosDBConstant
-                            .createBooleanConstant(expectedValue.cast(CnosDBDataType.BOOLEAN).asBoolean());
+                    return CnosDBConstant.createBooleanConstant(expectedValue.cast(CnosDBDataType.BOOLEAN).asBoolean());
                 }
             }
 
             @Override
             public CnosDBDataType[] getInputDataTypes() {
-                return new CnosDBDataType[]{CnosDBDataType.BOOLEAN};
+                return new CnosDBDataType[] { CnosDBDataType.BOOLEAN };
             }
 
         },
@@ -88,7 +87,7 @@ public class CnosDBPostfixOperation implements CnosDBExpression {
 
             @Override
             public CnosDBDataType[] getInputDataTypes() {
-                return new CnosDBDataType[]{CnosDBDataType.BOOLEAN};
+                return new CnosDBDataType[] { CnosDBDataType.BOOLEAN };
             }
 
         };
