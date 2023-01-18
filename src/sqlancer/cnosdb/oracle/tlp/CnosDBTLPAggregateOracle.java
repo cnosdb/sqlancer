@@ -37,7 +37,7 @@ public class CnosDBTLPAggregateOracle extends CnosDBTLPBase implements TestOracl
         aggregateCheck();
     }
 
-    protected void aggregateCheck()  {
+    protected void aggregateCheck() {
         // now not support
         // CnosDBAggregateFunction.COUNT
         CnosDBAggregateFunction aggregateFunction = Randomly.fromOptions(CnosDBAggregateFunction.MAX,
