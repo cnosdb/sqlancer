@@ -423,22 +423,13 @@ public class CnosDBExpressionGenerator implements ExpressionGenerator<CnosDBExpr
         }
         switch (type) {
             case INT:
-//                if (Randomly.getBooleanWithSmallProbability()) {
-//                    return CnosDBConstant.createStringConstant(String.valueOf(r.getInteger()));
-//                } else {
                 return CnosDBConstant.createIntConstant(r.getInteger());
-//                }
             case UINT:
                 return CnosDBConstant.createUintConstant(r.getPositiveInteger());
             case TIMESTAMP:
                 return CnosDBConstant.createTimeStampConstant(r.getPositiveIntegerNotNull());
             case BOOLEAN:
-//                if (Randomly.getBooleanWithSmallProbability()) {
-//                    return CnosDBConstant
-//                            .createStringConstant(Randomly.fromOptions("TR", "TRUE", "FA", "FALSE", "0", "1", "ON", "off"));
-//                } else {
                 return CnosDBConstant.createBooleanConstant(Randomly.getBoolean());
-//                }
             case STRING:
                 return CnosDBConstant.createStringConstant(r.getString());
             case DOUBLE:
@@ -511,13 +502,6 @@ public class CnosDBExpressionGenerator implements ExpressionGenerator<CnosDBExpr
         CnosDBWindowFunction baseWindowFunction = CnosDBWindowFunction.getRandom(dataType);
 
         boolean normalAggregateFunction = Randomly.getBoolean();
-
-//        if (!normalAggregateFunction) {
-//        baseWindowFunction = CnosDBWindowFunction.getRandom(dataType);
-//        } else {
-//            baseWindowFunction = generateAggregate(true);
-//            assert baseWindowFunction != null;
-//        }
 
         List<CnosDBExpression> args = new ArrayList<>();
 
